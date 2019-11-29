@@ -1,1 +1,1 @@
-"# racedata-manager" 
+# racedata-manager
