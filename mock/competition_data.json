@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "position": 1,
+    "name": "Василий Пупкин",
+    "year": 2012,
+    "time_first": 56,
+    "time_second": 54
+  },
+  {
+    "id": 2,
+    "position": 2,
+    "name": "Александр Белый",
+    "year": 2010,
+    "time_first": 49,
+    "time_second": 51
+  }
+]
