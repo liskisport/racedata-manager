@@ -7,5 +7,6 @@ app = FlaskAPI(__name__)
 def example():
     return 'hello'
 
+
 if __name__ == '__main__':
     app.run(debug=True)
