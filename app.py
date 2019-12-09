@@ -1,15 +1,11 @@
-from flask import jsonify
+#from flask import jsonify
 from flask_api import FlaskAPI
-import json
-import mysql.connector
-
-
+from flask_mysqldb import MySQL
+from envparse import env
+#import json
+#import mysql.connector
 
 app = FlaskAPI(__name__)
-
-#with open('./tmp/competition_data.json', 'r') as competition_data_file:
-#    competition_data = competition_data_file.read()
-
 
 @app.route('/')
 def example():
@@ -17,16 +13,25 @@ def example():
 
 
 @app.route('/competition/<int:id>')
-mydb = mysql.connector.connect(
-  host="tantriks.ru",
-  user="Jora",
-  passwd="daliluni"
-)
+# Configure MySQL
+app.config['MYSQL_HOST'] = env('tantriks.ru', cast=str)
+app.config['MYSQL_USER'] = env('tantrix5_root', cast=str)
+app.config['MYSQL_PASSWORD'] = env('Daliluni5', cast=str)
+app.config['MYSQL_DB'] = env('tantrix5_CompBase', cast=str)
+app.config['MYSQL_CURSORCLASS'] = 'CompCursor'
 
-mycursor = mydb.cursor()
+# Initialise MySQL
+mysql = MySQL(app)
 
-def competition(id):
-    return jsonify(json.loads(competition_data))
+
+CompCursor.execute('SELECT * FROM results WHERE CompID = id')
+comp_results = CompCursor.fetchall()
+
+for x in comp_results:
+  print(x)
+
+#def competition(id):
+#    return jsonify(json.loads(competition_data))
 
 
 if __name__ == '__main__':
