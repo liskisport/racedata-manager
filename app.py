@@ -1,14 +1,16 @@
 from flask_api import FlaskAPI
-
+from flask import jsonify
 import mysql.connector
 
 app = FlaskAPI(__name__)
 
 
 @app.route('/')
-# def examaple():
-#    return 'hello'
+def examaple():
+    return 'hello'
 
+
+@app.route('/res')
 def get_comp_results():
     print('Start with SQL')
     mydb = mysql.connector.connect(
@@ -21,19 +23,9 @@ def get_comp_results():
     print(mydb)
     mycursor = mydb.cursor()
 
-    mycursor.execute("SELECT * FROM results WHERE CompID = 4")
-
-    myresult = mycursor.fetchall()
-
-    for x in myresult:
-        print(x)
-
-    print('Done with SQL')
-    mes = "test sql"
-    return mes
-
-
-# $dbname = "tantrix5_CompBase"
+    mycursor.execute("SELECT * FROM results WHERE CompID = 1")
+    myresult = mycursor.fetchone()
+    return jsonify(name='skier', dob='old')
 
 
 if __name__ == '__main__':
