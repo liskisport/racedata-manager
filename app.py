@@ -1,5 +1,5 @@
 from flask_api import FlaskAPI
-# import flask
+
 import mysql.connector
 
 app = FlaskAPI(__name__)
@@ -19,6 +19,15 @@ def get_comp_results():
     )
 
     print(mydb)
+    mycursor = mydb.cursor()
+
+    mycursor.execute("SELECT * FROM results WHERE CompID = 4")
+
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x)
+
     print('Done with SQL')
     mes = "test sql"
     return mes
