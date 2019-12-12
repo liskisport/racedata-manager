@@ -1,37 +1,30 @@
-#from flask import jsonify
 from flask_api import FlaskAPI
-from flask_mysqldb import MySQL
-from envparse import env
-#import json
-#import mysql.connector
+# import flask
+import mysql.connector
 
 app = FlaskAPI(__name__)
 
+
 @app.route('/')
-def example():
-    return 'hello'
+# def examaple():
+#    return 'hello'
+
+def get_comp_results():
+    print('Start with SQL')
+    mydb = mysql.connector.connect(
+        host="80.78.250.41",
+        user="tantrix5_root",
+        password="Daliluni5",
+        database="tantrix5_CompBase"
+    )
+
+    print(mydb)
+    print('Done with SQL')
+    mes = "test sql"
+    return mes
 
 
-@app.route('/competition/<int:id>')
-# Configure MySQL
-app.config['MYSQL_HOST'] = env('tantriks.ru', cast=str)
-app.config['MYSQL_USER'] = env('tantrix5_root', cast=str)
-app.config['MYSQL_PASSWORD'] = env('Daliluni5', cast=str)
-app.config['MYSQL_DB'] = env('tantrix5_CompBase', cast=str)
-app.config['MYSQL_CURSORCLASS'] = 'CompCursor'
-
-# Initialise MySQL
-mysql = MySQL(app)
-
-
-CompCursor.execute('SELECT * FROM results WHERE CompID = id')
-comp_results = CompCursor.fetchall()
-
-for x in comp_results:
-  print(x)
-
-#def competition(id):
-#    return jsonify(json.loads(competition_data))
+# $dbname = "tantrix5_CompBase"
 
 
 if __name__ == '__main__':
