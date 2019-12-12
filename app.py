@@ -12,7 +12,6 @@ def examaple():
 
 @app.route('/res')
 def get_comp_results():
-    print('Start with SQL')
     mydb = mysql.connector.connect(
         host="80.78.250.41",
         user="tantrix5_root",
@@ -20,11 +19,11 @@ def get_comp_results():
         database="tantrix5_CompBase"
     )
 
-    print(mydb)
-    mycursor = mydb.cursor()
 
-    mycursor.execute("SELECT * FROM results WHERE CompID = 1")
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID, DOB, RunFg1, Res1, RunFg2, Res2, Res1+Res2 AS ResTot FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID=4 ORDER BY RunFg1, RunFg2, ResTot")
     myresult = mycursor.fetchone()
+    print(myresult)
     return jsonify(name='skier', dob='old')
 
 
