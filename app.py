@@ -21,9 +21,12 @@ def get_comp_results():
 
 
     mycursor = mydb.cursor(dictionary=True)
-#   mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID, DOB, RunFg1, Res1, RunFg2, Res2, Res1+Res2 AS ResTot FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID=4 ORDER BY RunFg1, RunFg2, ResTot")
-    mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID=4")
+    mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID, DOB, RunFg1, Res1, RunFg2, Res2, Res1+Res2 AS ResTot FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID=4 ORDER BY RunFg1, RunFg2, ResTot")
     myresult = mycursor.fetchall()
+    for row in myresult:
+        for data in row:
+            row[data] = str(row[data])
+
     return jsonify(myresult)
 
 
