@@ -20,11 +20,11 @@ def get_comp_results():
     )
 
 
-    mycursor = mydb.cursor()
-    mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID, DOB, RunFg1, Res1, RunFg2, Res2, Res1+Res2 AS ResTot FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID=4 ORDER BY RunFg1, RunFg2, ResTot")
-    myresult = mycursor.fetchone()
-    print(myresult)
-    return jsonify(name='skier', dob='old')
+    mycursor = mydb.cursor(dictionary=True)
+#   mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID, DOB, RunFg1, Res1, RunFg2, Res2, Res1+Res2 AS ResTot FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID=4 ORDER BY RunFg1, RunFg2, ResTot")
+    mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID=4")
+    myresult = mycursor.fetchall()
+    return jsonify(myresult)
 
 
 if __name__ == '__main__':
