@@ -2,6 +2,7 @@ from flask_api import FlaskAPI
 from flask import jsonify
 import mysql.connector
 
+
 app = FlaskAPI(__name__)
 
 
