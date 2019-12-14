@@ -10,8 +10,13 @@ def examaple():
     return 'hello'
 
 
-@app.route('/res')
-def get_comp_results():
+@app.route('/tmp/1')
+def tmp():
+    return 'tmp'
+
+
+@app.route('/res/<int:id>')
+def get_comp_results(id):
     mydb = mysql.connector.connect(
         host="80.78.250.41",
         user="tantrix5_root",
@@ -19,9 +24,8 @@ def get_comp_results():
         database="tantrix5_CompBase"
     )
 
-
     mycursor = mydb.cursor(dictionary=True)
-    mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID, DOB, RunFg1, Res1, RunFg2, Res2, Res1+Res2 AS ResTot FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID=4 ORDER BY RunFg1, RunFg2, ResTot")
+    mycursor.execute("SELECT results.SkierID, Bib, Fname, Name1, SexID, DOB, RunFg1, Res1, RunFg2, Res2, Res1+Res2 AS ResTot FROM results JOIN skiers ON results.SkierID = skiers.SkierID WHERE CompID="+str(id)+" ORDER BY RunFg1, RunFg2, ResTot")
     myresult = mycursor.fetchall()
     for row in myresult:
         for data in row:
