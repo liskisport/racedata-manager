@@ -1,3 +1,5 @@
+from builtins import str
+
 from flask_api import FlaskAPI
 from flask import jsonify
 import mysql.connector
@@ -14,14 +16,16 @@ def examaple():
 
 
 @app.route('/com')
-def COMrw():
-    ser = serial.Serial('COM3')
-    ser.write(2*b'loop that string ')
+def com_read():
+    ser = serial.Serial('COM3', bytesize=8, parity='N', stopbits=1)
+    ser.write(b' serial port loop test')
     time.sleep(.2)
     if ser.in_waiting > 0:
         serial_line = ser.read(size=ser.in_waiting)
-        print(serial_line)
-    return 'com port loop test'
+        print(serial_line.decode("utf-8"))
+        return 'COM3: ' + serial_line.decode("utf-8")
+    else:
+        return 'COM3: No Data Available'
 
 
 @app.route('/res/<int:id>')
