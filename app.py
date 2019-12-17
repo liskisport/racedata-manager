@@ -4,6 +4,7 @@ import mysql.connector
 import serial
 import time
 
+
 app = FlaskAPI(__name__)
 
 
