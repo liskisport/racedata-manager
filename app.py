@@ -1,6 +1,8 @@
 from flask_api import FlaskAPI
 from flask import jsonify
 import mysql.connector
+import serial
+import time
 
 app = FlaskAPI(__name__)
 
@@ -10,9 +12,15 @@ def examaple():
     return 'hello'
 
 
-@app.route('/tmp/1')
-def tmp():
-    return 'tmp'
+@app.route('/com')
+def COMrw():
+    ser = serial.Serial('COM3')
+    ser.write(2*b'loop that string ')
+    time.sleep(.2)
+    if ser.in_waiting > 0:
+        serial_line = ser.read(size=ser.in_waiting)
+        print(serial_line)
+    return 'com port loop test'
 
 
 @app.route('/res/<int:id>')
