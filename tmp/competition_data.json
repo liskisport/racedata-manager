@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "pos": 1,
+        "name": "skier",
+        "dob": 2000,
+        "group": "Open",
+        "team": "liski",
+        "res1": 20.12,
+        "res2": 19.46,
+        "sum": 39.58
+    }
+]
