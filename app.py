@@ -2,6 +2,7 @@ from builtins import str
 
 from flask_api import FlaskAPI
 from flask import jsonify
+from flask import render_template
 import mysql.connector
 import serial
 import time
@@ -12,14 +13,14 @@ app = FlaskAPI(__name__)
 
 @app.route('/')
 def examaple():
-    return 'hello'
+    return render_template('accordion.html', title='test')
 
 
 @app.route('/com')
 def com_read():
-    ser = serial.Serial('COM3', bytesize=8, parity='N', stopbits=1)
-    ser.write(b' serial port loop test')
-    time.sleep(.2)
+    ser = serial.Serial('COM6', bytesize=8, parity='N', stopbits=1)
+#    ser.write(b' serial port loop test')
+    time.sleep(30)
     if ser.in_waiting > 0:
         serial_line = ser.read(size=ser.in_waiting)
         print(serial_line.decode("utf-8"))
